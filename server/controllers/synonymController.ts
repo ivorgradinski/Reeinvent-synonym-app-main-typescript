@@ -1,8 +1,9 @@
-const synonymService = require('../services/synonymService');
-const { errors } = require('../constants/errors');
-const { addSynonymSchema, getSynonymSchema } = require('../validators/synonymValidator');
+import { Request, Response } from 'express';
+import synonymService from '../services/synonymService';
+import { errors } from '../constants/errors';
+import { addSynonymSchema, getSynonymSchema } from '../validators/synonymValidator';
 
-exports.addSynonym = async (req, res) => {
+export const addSynonym = async (req: Request, res: Response): Promise<Response> => {
     const { error } = addSynonymSchema.validate(req.body);
     if (error) {
         throw errors.VALIDATION(error.details[0].message);
@@ -13,7 +14,7 @@ exports.addSynonym = async (req, res) => {
     return res.status(201).json({ message: 'Synonyms added successfully' });
 };
 
-exports.getSynonyms = async (req, res) => {
+export const getSynonyms = async (req: Request, res: Response): Promise<Response> => {
     const { error } = getSynonymSchema.validate(req.params);
     if (error) {
         throw errors.VALIDATION(error.details[0].message);
@@ -27,4 +28,8 @@ exports.getSynonyms = async (req, res) => {
     }
 
     return res.status(200).json({ synonyms });
+};
+export default {
+    addSynonym,
+    getSynonyms,
 };
