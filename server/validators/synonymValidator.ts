@@ -1,5 +1,4 @@
-//for preventing DDOS attacks
-const Joi = require('joi');
+import * as Joi from 'joi';
 
 const addSynonymSchema = Joi.object({
     word: Joi.string().min(1).required(),
@@ -10,7 +9,8 @@ const getSynonymSchema = Joi.object({
     word: Joi.string().min(1).required()
 });
 
-module.exports = {
+export default {
     addSynonymSchema,
     getSynonymSchema
 };
+
