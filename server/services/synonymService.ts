@@ -9,7 +9,6 @@ interface SynonymMap {
 
 let synonymMap: SynonymMap = {};
 
-// Function to add a pair of synonyms
 function addPair(word1: string, word2: string): void {
     if (!synonymMap[word1]) {
         synonymMap[word1] = new Set();
