@@ -3,7 +3,7 @@ import synonymService from '../services/synonymService';
 import { errors } from '../constants/errors';
 import { addSynonymSchema, getSynonymSchema } from '../validators/synonymValidator';
 
-export const addSynonym = async (req: Request, res: Response): Promise<Response> => {
+export const addSynonym = async (req: Request, res: Response): Promise<void> => {
     const { error } = addSynonymSchema.validate(req.body);
     if (error) {
         throw errors.VALIDATION(error.details[0].message);
@@ -11,10 +11,10 @@ export const addSynonym = async (req: Request, res: Response): Promise<Response>
 
     const { word, synonyms } = req.body;
     await synonymService.addSynonym(word, synonyms);
-    return res.status(201).json({ message: 'Synonyms added successfully' });
+    res.status(201).json({ message: 'Synonyms added successfully' });
 };
 
-export const getSynonyms = async (req: Request, res: Response): Promise<Response> => {
+export const getSynonyms = async (req: Request, res: Response): Promise<void> => {
     const { error } = getSynonymSchema.validate(req.params);
     if (error) {
         throw errors.VALIDATION(error.details[0].message);
@@ -27,8 +27,9 @@ export const getSynonyms = async (req: Request, res: Response): Promise<Response
         throw errors.NOT_FOUND('Word not found');
     }
 
-    return res.status(200).json({ synonyms });
+    res.status(200).json({ synonyms });
 };
+
 export default {
     addSynonym,
     getSynonyms,
