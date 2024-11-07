@@ -4,8 +4,13 @@ import * as Yup from 'yup';
 import { addSynonym } from '../../services/synonymService';
 import styles from './AddSynonymPage.module.css';
 
+interface FormValues {
+    word: string;
+    synonyms: string;
+}
+
 const AddSynonymPage = () => {
-    const formik = useFormik({
+    const formik = useFormik<FormValues>({
         initialValues: {
             word: '',
             synonyms: '',
@@ -14,7 +19,7 @@ const AddSynonymPage = () => {
             word: Yup.string().required('Word is required'),
             synonyms: Yup.string().required('At least one synonym is required'),
         }),
-        onSubmit: async (values, { resetForm }) => {
+        onSubmit: async (values: FormValues, { resetForm }) => {
             const synonymList = values.synonyms.split(',').map(s => s.trim());
             try {
                 await addSynonym(values.word, synonymList);

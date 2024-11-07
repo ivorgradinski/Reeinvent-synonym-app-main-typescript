@@ -3,11 +3,11 @@ import { searchSynonyms } from '../../services/synonymService';
 import styles from './SearchPage.module.css';
 
 const SearchPage = () => {
-    const [word, setWord] = useState('');
-    const [synonyms, setSynonyms] = useState([]);
-    const [message, setMessage] = useState('');
+    const [word, setWord] = useState<string>('');
+    const [synonyms, setSynonyms] = useState<string[]>([]);
+    const [message, setMessage] = useState<string>();
 
-    const handleSearch = async (e) => {
+    const handleSearch = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             const data = await searchSynonyms(word);
